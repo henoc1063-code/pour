@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>💕 Pour Toi 💕</title>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <!-- EmailJS -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
+        <script>
+            // Initialiser EmailJS dès que possible
+            if (window.emailjs) {
+                emailjs.init('35RZwFzywoSe_Yn_8');
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Écran de verrouillage -->
+        <div id="lock-screen">
+            <div class="lock-content">
+                <div class="lock-icon">🔒</div>
+                <h1 class="lock-title">Entre un code</h1>
+                <p class="lock-subtitle">Ce site est privé pour une personne spéciale 💙</p>
+
+                <form id="lock-form" class="lock-form">
+                    <input
+                        type="password"
+                        id="password-input"
+                        placeholder="Tape le code..."
+                        class="password-input"
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="lock-btn">
+                        <span>Accéder</span>
+                    </button>
+                </form>
+
+                <p id="error-message" class="error-message"></p>
+            </div>
+        </div>
+
+        <!-- Écran d'entrée -->
+        <div id="intro-screen" class="hidden">
+            <div id="bouquet-container"></div>
+            <div class="intro-content">
+                <div class="heart-intro">💌</div>
+                <h1 class="intro-title">Salut</h1>
+                <p class="intro-subtitle">J'avais quelque chose à te dire...</p>
+                <button id="enter-btn" class="magic-btn">
+                    <span>Écouter</span>
+                    <div class="btn-hearts">💙</div>
+                </button>
+            </div>
+            <div class="floating-hearts-intro"></div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main-content" class="hidden">
+            <!-- Particules de fond -->
+            <div id="particles"></div>
+
+            <!-- Section Hero -->
+            <section class="hero">
+                <div class="hero-bg"></div>
+                <div class="hero-content">
+                    <div class="crown">💙</div>
+                    <h1 class="main-title">
+                        <span class="line1">Tu me plais</span>
+                    </h1>
+                    <div class="subtitle">Je voulais que tu le saches 😊</div>
+                </div>
+            </section>
+
+            <!-- Section Message Principal -->
+            <section class="wishes-section">
+                <div class="container">
+                    <div class="wishes-card glass-card">
+                        <div class="message-box">
+                            <p>
+                                C'est simple en fait. Je t'ai vu à l'école et tu me plais vraiment.
+                            </p>
+                            <p>
+                                Tu souris naturellement, tu as une énergie qu'on sent.
+                                Ça me touche.
+                            </p>
+                            <p>
+                                On se parle pas beaucoup, juste quelques messages.
+                                Mais même juste de te voir, ça me suffit pour te dire que tu me plais.
+                            </p>
+                            <p>
+                                <span class="highlight happiness">J'aimerais qu'on se parle plus. Juste pour voir. Si tu veux bien. 💙</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Photo -->
+            <section class="photo-section">
+                <div class="container">
+                    <div class="wife-photo-container">
+                        <div class="photo-frame">
+                            <img src="photo.jpg.jpeg" alt="Photo" class="wife-photo">
+                            <div class="photo-hearts">
+                                <span>💙</span><span>💙</span><span>💙</span>
+                            </div>
+                        </div>
+                        <p class="photo-caption">T'es belle 😊</p>
+                        <p class="photo-message">Sérieusement, tu me plais vraiment quand je te vois comme ça</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Vidéo -->
+            <section class="video-section">
+                <div class="container">
+                    <div class="wife-photo-container">
+                        <div class="photo-frame">
+                            <video class="wife-photo" controls muted>
+                                <source src="video.mp4.mp4" type="video/mp4">
+                                Ton navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                        <p class="video-message">C'est toi que j'aime. Pas le côté romantique niaiseux. Juste toi. 💙</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Honnêteté -->
+            <section class="honesty-section">
+                <div class="container">
+                    <div class="honesty-card glass-card">
+                        <p>
+                            Je sais que t'es pas trop du genre romantique et tout ça.
+                            Tu aimes les trucs en gang, être avec tes amies, rire sans prise de tête.
+                        </p>
+                        <p>
+                            Et c'est peut-être pour ça que tu me plais justement. T'es pas fake, t'es naturelle.
+                        </p>
+                        <p>
+                            Donc bon, j'espère que tout ça te perturbera pas trop.
+                            <span class="highlight happiness">Mais peut-être que tu vas aimer quand même? 💙</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Finale -->
+            <section class="finale-section">
+                <div class="love-explosion"></div>
+                <div class="container">
+                    <div class="finale-content">
+                        <div class="big-heart-container">
+                            <div class="big-heart">💙</div>
+                            <div class="heart-ring ring1">💙</div>
+                            <div class="heart-ring ring2">💙</div>
+                            <div class="heart-ring ring3">💙</div>
+                        </div>
+
+                        <h1 class="love-declaration">
+                            T'en dis quoi?
+                        </h1>
+
+                        <div class="signature">
+                            <p>Quelqu'un de sincère,</p>
+                            <p class="signature-name">💙</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Musique de fond (optionnel) -->
+        <div id="music-control">
+            <button id="music-btn" class="music-button">
+                <span class="music-icon">🎵</span>
+            </button>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
