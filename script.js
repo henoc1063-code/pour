@@ -2,6 +2,31 @@
 // SYSTÈME DE VERROUILLAGE
 // ========================================
 const PASSWORD = 'DIVINE';
+let youtubePlayer = null;
+
+// Initialiser le player YouTube
+function onYouTubeIframeAPIReady() {
+    youtubePlayer = new YT.Player('youtube-player', {
+        videoId: '6LtNlSI0JrA',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        },
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'modestbranding': 1
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    console.log('Player YouTube prêt');
+}
+
+function onPlayerStateChange(event) {
+    console.log('État du player YouTube:', event.data);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page chargée - Attente du formulaire...');
@@ -38,6 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('✅ Mot de passe CORRECT!');
             // Mot de passe correct
             errorMessage.textContent = '';
+            
+            // Jouer la musique YouTube
+            if (youtubePlayer && youtubePlayer.playVideo) {
+                youtubePlayer.playVideo();
+                console.log('🎵 Musique lancée!');
+            }
+            
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
             lockScreen.style.transition = 'all 1s ease-out';

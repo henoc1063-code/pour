@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="style.css">
         <!-- EmailJS -->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
+        <!-- YouTube API -->
+        <script src="https://www.youtube.com/iframe_api"></script>
         <script>
             // Initialiser EmailJS dès que possible
             if (window.emailjs) {
@@ -16,6 +18,9 @@
         </script>
     </head>
     <body>
+        <!-- Player YouTube caché -->
+        <div id="youtube-player" style="display: none; position: fixed; top: -9999px; left: -9999px;"></div>
+
         <!-- Écran de verrouillage -->
         <div id="lock-screen">
             <div class="lock-content">
