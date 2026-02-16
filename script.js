@@ -22,8 +22,6 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     console.log('Player YouTube prêt');
-    // Couper le son par défaut
-    youtubePlayer.mute();
 }
 
 function onPlayerStateChange(event) {
@@ -70,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (youtubePlayer && youtubePlayer.playVideo) {
                 // Aller à 19 secondes
                 youtubePlayer.seekTo(19, true);
+                // Réactiver le son
+                youtubePlayer.unMute();
                 // Puis jouer
                 youtubePlayer.playVideo();
-                console.log('🎵 Musique lancée à partir de 19 secondes!');
+                console.log('🎵 Musique lancée à partir de 19 secondes avec son!');
             }
             
             lockScreen.style.opacity = '0';
