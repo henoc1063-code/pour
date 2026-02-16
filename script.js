@@ -22,6 +22,8 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     console.log('Player YouTube prêt');
+    // Couper le son par défaut
+    youtubePlayer.mute();
 }
 
 function onPlayerStateChange(event) {
