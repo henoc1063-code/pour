@@ -22,16 +22,8 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     console.log('Player YouTube prêt');
-    // Lancer la musique immédiatement
-    if (youtubePlayer) {
-        try {
-            youtubePlayer.unMute();
-            youtubePlayer.playVideo();
-            console.log('🎵 Musique lancée dès le chargement!');
-        } catch (err) {
-            console.error('Erreur lors du lancement immédiat:', err);
-        }
-    }
+    // Mettre en sourdine par défaut
+    youtubePlayer.mute();
 }
 
 function onPlayerStateChange(event) {
@@ -73,6 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('✅ Mot de passe CORRECT!');
             // Mot de passe correct
             errorMessage.textContent = '';
+            
+            // Jouer la musique YouTube
+            if (youtubePlayer) {
+                try {
+                    youtubePlayer.unMute();
+                    youtubePlayer.playVideo();
+                    console.log('🎵 Musique lancée!');
+                } catch (err) {
+                    console.error('Erreur lors de la lecture:', err);
+                }
+            }
             
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
