@@ -86,6 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
         introScreen.classList.remove('hidden');
         initSite();
     }
+
+    // Ajouter l'event listener au bouton play/pause
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', togglePlayPause);
+    }
 });
 
 async function sendEmailNotification() {
@@ -561,14 +567,6 @@ function updatePlayButton() {
     playIcon.classList.add('hidden');
     pauseIcon.classList.remove('hidden');
 }
-
-// Ajouter l'event listener au bouton play/pause
-document.addEventListener('DOMContentLoaded', () => {
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    if (playPauseBtn) {
-        playPauseBtn.addEventListener('click', togglePlayPause);
-    }
-});
 
 // ========================================
 // INITIALISATION FINALE
