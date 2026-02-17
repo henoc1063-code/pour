@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Récupérer l'élément audio
     audioElement = document.getElementById('background-audio');
     console.log('Audio element trouvé:', !!audioElement);
+    
+    if (audioElement) {
+        console.log('Audio src:', audioElement.querySelector('source')?.src);
+        console.log('Audio canPlayType(mp3):', audioElement.canPlayType('audio/mpeg'));
+        
+        // Précharger l'audio
+        audioElement.load();
+        console.log('Audio préchargé');
+    }
 
     // Initialisation du verrouillage
     const lockForm = document.getElementById('lock-form');
@@ -50,10 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audioElement) {
                 try {
                     audioElement.volume = 1; // Volume au maximum
-                    audioElement.play();
-                    console.log('✅ 🎵 Audio lancé avec succès!');
+                    audioElement.currentTime = 0; // Recommencer depuis le début
+                    
+                    // Essayer de jouer
+                    const playPromise = audioElement.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => {
+                                console.log('✅ 🎵 Audio joue avec succès!');
+                            })
+                            .catch(error => {
+                                console.error('❌ Erreur lors de la lecture:', error);
+                                console.log('⚠️ Tentative avec muted=false...');
+                                audioElement.muted = false;
+                                audioElement.play().catch(e => console.error('Erreur 2:', e));
+                            });
+                    }
                 } catch (err) {
-                    console.error('❌ Erreur lors de la lecture:', err);
+                    console.error('❌ Exception lors de la lecture:', err);
                 }
             } else {
                 console.error('❌ Élément audio non trouvé');
