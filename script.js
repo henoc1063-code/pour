@@ -516,7 +516,7 @@ document.querySelectorAll('.emphasis, .golden, .divine, .forever').forEach(el =>
 function playAudio() {
     const audioPlayer = document.getElementById('audio-player');
     const audioControls = document.getElementById('audio-controls');
-    const audioFile = './Nono_La_Grinta_-_Restaurant(256k)ha (2).m4a';
+    const audioFile = './music.m4a';
     
     console.log('🎵 Initialisation de la musique...');
     
