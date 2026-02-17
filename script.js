@@ -553,9 +553,15 @@ function togglePlayPause() {
     const pauseIcon = document.querySelector('.pause-icon');
     
     if (audioPlayer.paused) {
-        audioPlayer.play();
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
+        const playPromise = audioPlayer.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            }).catch(err => {
+                console.error('Erreur play:', err.message);
+            });
+        }
     } else {
         audioPlayer.pause();
         playIcon.classList.remove('hidden');
