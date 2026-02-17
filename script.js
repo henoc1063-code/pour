@@ -65,12 +65,29 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessage.textContent = '';
             
             // Jouer la musique YouTube
-            if (youtubePlayer && youtubePlayer.playVideo) {
-                // Réactiver le son
-                youtubePlayer.unMute();
-                // Puis jouer
-                youtubePlayer.playVideo();
-                console.log('🎵 Musique lancée immédiatement avec son!');
+            console.log('Tentative de lecture - youtubePlayer:', youtubePlayer);
+            
+            if (youtubePlayer) {
+                try {
+                    youtubePlayer.unMute();
+                    youtubePlayer.playVideo();
+                    console.log('🎵 Musique lancée avec succès!');
+                } catch (err) {
+                    console.error('Erreur lors de la lecture:', err);
+                }
+            } else {
+                console.log('⚠️ Player YouTube pas encore initialisé, tentative dans 500ms...');
+                setTimeout(() => {
+                    if (youtubePlayer) {
+                        try {
+                            youtubePlayer.unMute();
+                            youtubePlayer.playVideo();
+                            console.log('🎵 Musique lancée après délai!');
+                        } catch (err) {
+                            console.error('Erreur lors de la lecture après délai:', err);
+                        }
+                    }
+                }, 500);
             }
             
             lockScreen.style.opacity = '0';
