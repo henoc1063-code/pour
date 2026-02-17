@@ -66,13 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Jouer la musique YouTube
             if (youtubePlayer && youtubePlayer.playVideo) {
-                // Aller à 19 secondes
-                youtubePlayer.seekTo(19, true);
                 // Réactiver le son
                 youtubePlayer.unMute();
                 // Puis jouer
                 youtubePlayer.playVideo();
-                console.log('🎵 Musique lancée à partir de 19 secondes avec son!');
+                console.log('🎵 Musique lancée immédiatement avec son!');
             }
             
             lockScreen.style.opacity = '0';
