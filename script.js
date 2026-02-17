@@ -3,9 +3,11 @@
 // ========================================
 const PASSWORD = 'DIVINE';
 let youtubePlayer = null;
+let playerReady = false;
 
 // Initialiser le player YouTube
 function onYouTubeIframeAPIReady() {
+    console.log('YouTube API chargée, création du player...');
     youtubePlayer = new YT.Player('youtube-player', {
         videoId: '6LtNlSI0JrA',
         events: {
@@ -21,7 +23,8 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-    console.log('Player YouTube prêt');
+    console.log('✅ Player YouTube prêt et initialisé');
+    playerReady = true;
     // Mettre en sourdine par défaut
     youtubePlayer.mute();
 }
@@ -63,19 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (enteredPassword === PASSWORD) {
             console.log('✅ Mot de passe CORRECT!');
+            console.log('youtubePlayer:', youtubePlayer);
+            console.log('playerReady:', playerReady);
+            
             // Mot de passe correct
             errorMessage.textContent = '';
             
-            // Jouer la musique YouTube
-            if (youtubePlayer) {
-                try {
-                    youtubePlayer.unMute();
-                    youtubePlayer.playVideo();
-                    console.log('🎵 Musique lancée!');
-                } catch (err) {
-                    console.error('Erreur lors de la lecture:', err);
+            // Jouer la musique YouTube avec vérifications
+            const playMusic = () => {
+                if (youtubePlayer && playerReady) {
+                    try {
+                        const state = youtubePlayer.getPlayerState();
+                        console.log('État actuel du player:', state);
+                        youtubePlayer.unMute();
+                        youtubePlayer.playVideo();
+                        console.log('✅ 🎵 Musique lancée avec succès!');
+                    } catch (err) {
+                        console.error('❌ Erreur lors de la lecture:', err);
+                    }
+                } else {
+                    console.log('⚠️ Player pas prêt, nouvelle tentative dans 200ms...');
+                    setTimeout(playMusic, 200);
                 }
-            }
+            };
+            
+            playMusic();
             
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
