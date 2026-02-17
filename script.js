@@ -15,6 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Audio src:', audioElement.querySelector('source')?.src);
         console.log('Audio canPlayType(mp3):', audioElement.canPlayType('audio/mpeg'));
         
+        // Ajouter des listeners d'erreur
+        audioElement.addEventListener('error', (e) => {
+            console.error('❌ Erreur audio:', e);
+            console.error('Code d\'erreur:', audioElement.error?.code);
+            console.error('Message:', audioElement.error?.message);
+        });
+        
+        audioElement.addEventListener('loadstart', () => {
+            console.log('📥 Chargement de l\'audio commencé...');
+        });
+        
+        audioElement.addEventListener('canplay', () => {
+            console.log('✅ Audio peut être joué');
+        });
+        
+        audioElement.addEventListener('play', () => {
+            console.log('▶️ Audio en cours de lecture');
+        });
+        
         // Précharger l'audio
         audioElement.load();
         console.log('Audio préchargé');
@@ -51,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (enteredPassword === PASSWORD) {
             console.log('✅ Mot de passe CORRECT!');
             console.log('audioElement:', audioElement);
+            console.log('audioElement.paused:', audioElement?.paused);
             
             // Mot de passe correct
             errorMessage.textContent = '';
@@ -58,8 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Jouer l'audio
             if (audioElement) {
                 try {
-                    audioElement.volume = 1; // Volume au maximum
-                    audioElement.currentTime = 0; // Recommencer depuis le début
+                    // Réinitialiser
+                    audioElement.currentTime = 0;
+                    audioElement.volume = 1;
+                    
+                    // Retirer muted pour pouvoir écouter
+                    audioElement.muted = false;
+                    
+                    console.log('🔊 Volume:', audioElement.volume);
+                    console.log('🔇 Muted:', audioElement.muted);
                     
                     // Essayer de jouer
                     const playPromise = audioElement.play();
@@ -67,17 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (playPromise !== undefined) {
                         playPromise
                             .then(() => {
-                                console.log('✅ 🎵 Audio joue avec succès!');
+                                console.log('✅ 🎵 Audio JOUE avec succès!');
+                                console.log('État du player:', audioElement.paused ? 'Paused' : 'Playing');
                             })
                             .catch(error => {
-                                console.error('❌ Erreur lors de la lecture:', error);
-                                console.log('⚠️ Tentative avec muted=false...');
-                                audioElement.muted = false;
-                                audioElement.play().catch(e => console.error('Erreur 2:', e));
+                                console.error('❌ Erreur play():', error.name, error.message);
                             });
+                    } else {
+                        console.log('✅ 🎵 Audio joue (pas de Promise)');
                     }
                 } catch (err) {
-                    console.error('❌ Exception lors de la lecture:', err);
+                    console.error('❌ Exception:', err);
                 }
             } else {
                 console.error('❌ Élément audio non trouvé');
