@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mot de passe correct
             errorMessage.textContent = '';
             
-            // Jouer le son
-            playAudio();
-            
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
             lockScreen.style.transition = 'all 1s ease-out';
@@ -492,62 +489,6 @@ document.querySelectorAll('.emphasis, .golden, .divine, .forever').forEach(el =>
         el.style.transform = 'scale(1)';
     });
 });
-
-// ========================================
-// LECTEUR AUDIO
-// ========================================
-function playAudio() {
-    const audioPlayer = document.getElementById('audio-player');
-    const audioControls = document.getElementById('audio-controls');
-    const playIcon = document.querySelector('.play-icon');
-    const pauseIcon = document.querySelector('.pause-icon');
-    const audioFile = './music.m4a';
-    
-    console.log('🎵 Initialisation de la musique...');
-    console.log('Fichier:', audioFile);
-    
-    audioPlayer.src = audioFile;
-    audioControls.classList.remove('hidden');
-    
-    // Attendre un peu avant de lancer la lecture
-    setTimeout(() => {
-        const playPromise = audioPlayer.play();
-        
-        if (playPromise !== undefined) {
-            playPromise
-                .then(() => {
-                    console.log('✅ La musique se joue!');
-                    playIcon.classList.add('hidden');
-                    pauseIcon.classList.remove('hidden');
-                })
-                .catch(err => {
-                    console.error('❌ Erreur:', err.message);
-                });
-        }
-    }, 100);
-}
-
-function togglePlayPause() {
-    const audioPlayer = document.getElementById('audio-player');
-    const playIcon = document.querySelector('.play-icon');
-    const pauseIcon = document.querySelector('.pause-icon');
-    
-    if (audioPlayer.paused) {
-        const playPromise = audioPlayer.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            }).catch(err => {
-                console.error('Erreur play:', err.message);
-            });
-        }
-    } else {
-        audioPlayer.pause();
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-    }
-}
 
 // ========================================
 // INITIALISATION FINALE
