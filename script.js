@@ -2,42 +2,9 @@
 // SYSTÈME DE VERROUILLAGE
 // ========================================
 const PASSWORD = 'DIVINE';
-let audioElement = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page chargée - Attente du formulaire...');
-
-    // Récupérer l'élément audio
-    audioElement = document.getElementById('background-audio');
-    console.log('Audio element trouvé:', !!audioElement);
-    
-    if (audioElement) {
-        console.log('Audio src:', audioElement.querySelector('source')?.src);
-        console.log('Audio canPlayType(mp3):', audioElement.canPlayType('audio/mpeg'));
-        
-        // Ajouter des listeners d'erreur
-        audioElement.addEventListener('error', (e) => {
-            console.error('❌ Erreur audio:', e);
-            console.error('Code d\'erreur:', audioElement.error?.code);
-            console.error('Message:', audioElement.error?.message);
-        });
-        
-        audioElement.addEventListener('loadstart', () => {
-            console.log('📥 Chargement de l\'audio commencé...');
-        });
-        
-        audioElement.addEventListener('canplay', () => {
-            console.log('✅ Audio peut être joué');
-        });
-        
-        audioElement.addEventListener('play', () => {
-            console.log('▶️ Audio en cours de lecture');
-        });
-        
-        // Précharger l'audio
-        audioElement.load();
-        console.log('Audio préchargé');
-    }
 
     // Initialisation du verrouillage
     const lockForm = document.getElementById('lock-form');
@@ -69,46 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (enteredPassword === PASSWORD) {
             console.log('✅ Mot de passe CORRECT!');
-            console.log('audioElement:', audioElement);
-            console.log('audioElement.paused:', audioElement?.paused);
-            
             // Mot de passe correct
             errorMessage.textContent = '';
-            
-            // Jouer l'audio
-            if (audioElement) {
-                try {
-                    // Réinitialiser
-                    audioElement.currentTime = 0;
-                    audioElement.volume = 1;
-                    
-                    // Retirer muted pour pouvoir écouter
-                    audioElement.muted = false;
-                    
-                    console.log('🔊 Volume:', audioElement.volume);
-                    console.log('🔇 Muted:', audioElement.muted);
-                    
-                    // Essayer de jouer
-                    const playPromise = audioElement.play();
-                    
-                    if (playPromise !== undefined) {
-                        playPromise
-                            .then(() => {
-                                console.log('✅ 🎵 Audio JOUE avec succès!');
-                                console.log('État du player:', audioElement.paused ? 'Paused' : 'Playing');
-                            })
-                            .catch(error => {
-                                console.error('❌ Erreur play():', error.name, error.message);
-                            });
-                    } else {
-                        console.log('✅ 🎵 Audio joue (pas de Promise)');
-                    }
-                } catch (err) {
-                    console.error('❌ Exception:', err);
-                }
-            } else {
-                console.error('❌ Élément audio non trouvé');
-            }
             
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
