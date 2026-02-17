@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mot de passe correct
             errorMessage.textContent = '';
             
+            // Jouer le son
+            playAudio();
+            
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
             lockScreen.style.transition = 'all 1s ease-out';
@@ -506,6 +509,19 @@ document.querySelectorAll('.emphasis, .golden, .divine, .forever').forEach(el =>
         el.style.transform = 'scale(1)';
     });
 });
+
+// ========================================
+// LECTEUR AUDIO
+// ========================================
+function playAudio() {
+    const audioPlayer = document.getElementById('audio-player');
+    const audioFile = 'Nono_La_Grinta_-_Restaurant(256k)ha (2).m4a';
+    
+    audioPlayer.src = audioFile;
+    audioPlayer.play().catch(err => {
+        console.error('Erreur lors de la lecture audio:', err);
+    });
+}
 
 // ========================================
 // INITIALISATION FINALE
