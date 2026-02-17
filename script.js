@@ -391,18 +391,20 @@ const audio = new Audio();
 // audio.src = 'votre-musique.mp3';
 audio.loop = true;
 
-musicBtn.addEventListener('click', () => {
-    if (isPlaying) {
-        audio.pause();
-        musicBtn.classList.remove('playing');
-    } else {
-        audio.play().catch(() => {
-            console.log('Ajoutez un fichier audio pour activer la musique');
-        });
-        musicBtn.classList.add('playing');
-    }
-    isPlaying = !isPlaying;
-});
+if (musicBtn) {
+    musicBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            musicBtn.classList.remove('playing');
+        } else {
+            audio.play().catch(() => {
+                console.log('Ajoutez un fichier audio pour activer la musique');
+            });
+            musicBtn.classList.add('playing');
+        }
+        isPlaying = !isPlaying;
+    });
+}
 
 // ========================================
 // EFFETS SUPPLÉMENTAIRES
@@ -525,6 +527,7 @@ function playAudio() {
     const audioFile = './music.m4a';
     
     console.log('🎵 Initialisation de la musique...');
+    console.log('Fichier:', audioFile);
     
     audioPlayer.src = audioFile;
     audioControls.classList.remove('hidden');
