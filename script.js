@@ -524,6 +524,8 @@ document.querySelectorAll('.emphasis, .golden, .divine, .forever').forEach(el =>
 function playAudio() {
     const audioPlayer = document.getElementById('audio-player');
     const audioControls = document.getElementById('audio-controls');
+    const playIcon = document.querySelector('.play-icon');
+    const pauseIcon = document.querySelector('.pause-icon');
     const audioFile = './music.m4a';
     
     console.log('🎵 Initialisation de la musique...');
@@ -532,19 +534,22 @@ function playAudio() {
     audioPlayer.src = audioFile;
     audioControls.classList.remove('hidden');
     
-    // Permettre la lecture automatique
-    const playPromise = audioPlayer.play();
-    
-    if (playPromise !== undefined) {
-        playPromise
-            .then(() => {
-                console.log('✅ La musique se joue!');
-                updatePlayButton();
-            })
-            .catch(err => {
-                console.error('❌ Erreur:', err.message);
-            });
-    }
+    // Attendre un peu avant de lancer la lecture
+    setTimeout(() => {
+        const playPromise = audioPlayer.play();
+        
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    console.log('✅ La musique se joue!');
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                })
+                .catch(err => {
+                    console.error('❌ Erreur:', err.message);
+                });
+        }
+    }, 100);
 }
 
 function togglePlayPause() {
@@ -567,14 +572,6 @@ function togglePlayPause() {
         playIcon.classList.remove('hidden');
         pauseIcon.classList.add('hidden');
     }
-}
-
-function updatePlayButton() {
-    const playIcon = document.querySelector('.play-icon');
-    const pauseIcon = document.querySelector('.pause-icon');
-    
-    playIcon.classList.add('hidden');
-    pauseIcon.classList.remove('hidden');
 }
 
 // ========================================
