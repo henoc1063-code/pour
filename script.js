@@ -2,39 +2,14 @@
 // SYSTÈME DE VERROUILLAGE
 // ========================================
 const PASSWORD = 'DIVINE';
-let youtubePlayer = null;
-let playerReady = false;
-
-// Initialiser le player YouTube
-function onYouTubeIframeAPIReady() {
-    console.log('YouTube API chargée, création du player...');
-    youtubePlayer = new YT.Player('youtube-player', {
-        videoId: '6LtNlSI0JrA',
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        },
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'modestbranding': 1
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    console.log('✅ Player YouTube prêt et initialisé');
-    playerReady = true;
-    // Mettre en sourdine par défaut
-    youtubePlayer.mute();
-}
-
-function onPlayerStateChange(event) {
-    console.log('État du player YouTube:', event.data);
-}
+let audioElement = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page chargée - Attente du formulaire...');
+
+    // Récupérer l'élément audio
+    audioElement = document.getElementById('background-audio');
+    console.log('Audio element trouvé:', !!audioElement);
 
     // Initialisation du verrouillage
     const lockForm = document.getElementById('lock-form');
@@ -66,31 +41,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (enteredPassword === PASSWORD) {
             console.log('✅ Mot de passe CORRECT!');
-            console.log('youtubePlayer:', youtubePlayer);
-            console.log('playerReady:', playerReady);
+            console.log('audioElement:', audioElement);
             
             // Mot de passe correct
             errorMessage.textContent = '';
             
-            // Jouer la musique YouTube avec vérifications
-            const playMusic = () => {
-                if (youtubePlayer && playerReady) {
-                    try {
-                        const state = youtubePlayer.getPlayerState();
-                        console.log('État actuel du player:', state);
-                        youtubePlayer.unMute();
-                        youtubePlayer.playVideo();
-                        console.log('✅ 🎵 Musique lancée avec succès!');
-                    } catch (err) {
-                        console.error('❌ Erreur lors de la lecture:', err);
-                    }
-                } else {
-                    console.log('⚠️ Player pas prêt, nouvelle tentative dans 200ms...');
-                    setTimeout(playMusic, 200);
+            // Jouer l'audio
+            if (audioElement) {
+                try {
+                    audioElement.volume = 1; // Volume au maximum
+                    audioElement.play();
+                    console.log('✅ 🎵 Audio lancé avec succès!');
+                } catch (err) {
+                    console.error('❌ Erreur lors de la lecture:', err);
                 }
-            };
-            
-            playMusic();
+            } else {
+                console.error('❌ Élément audio non trouvé');
+            }
             
             lockScreen.style.opacity = '0';
             lockScreen.style.transform = 'scale(1.1)';
