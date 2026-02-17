@@ -382,31 +382,6 @@ fireworkStyle.textContent = `
 document.head.appendChild(fireworkStyle);
 
 // ========================================
-// CONTRÔLE MUSIQUE (optionnel)
-// ========================================
-const musicBtn = document.getElementById('music-btn');
-let isPlaying = false;
-
-const audio = new Audio();
-// audio.src = 'votre-musique.mp3';
-audio.loop = true;
-
-if (musicBtn) {
-    musicBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            audio.pause();
-            musicBtn.classList.remove('playing');
-        } else {
-            audio.play().catch(() => {
-                console.log('Ajoutez un fichier audio pour activer la musique');
-            });
-            musicBtn.classList.add('playing');
-        }
-        isPlaying = !isPlaying;
-    });
-}
-
-// ========================================
 // EFFETS SUPPLÉMENTAIRES
 // ========================================
 window.addEventListener('scroll', () => {
