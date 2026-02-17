@@ -18,7 +18,14 @@
         </script>
     </head>
     <body>
-        <!-- Élément audio caché -->
+        <!-- Lecteur audio avec contrôles -->
+        <div id="audio-controls" class="audio-controls hidden">
+            <button id="play-pause-btn" class="play-pause-btn" title="Play/Pause">
+                <span class="play-icon">▶️</span>
+                <span class="pause-icon hidden">⏸️</span>
+            </button>
+            <span class="audio-label">🎵 Nono - La Grinta</span>
+        </div>
         <audio id="audio-player" preload="auto"></audio>
 
         <!-- Écran de verrouillage -->

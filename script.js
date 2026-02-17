@@ -515,13 +515,60 @@ document.querySelectorAll('.emphasis, .golden, .divine, .forever').forEach(el =>
 // ========================================
 function playAudio() {
     const audioPlayer = document.getElementById('audio-player');
-    const audioFile = 'Nono_La_Grinta_-_Restaurant(256k)ha (2).m4a';
+    const audioControls = document.getElementById('audio-controls');
+    const audioFile = './Nono_La_Grinta_-_Restaurant(256k)ha (2).m4a';
+    
+    console.log('🎵 Initialisation de la musique...');
     
     audioPlayer.src = audioFile;
-    audioPlayer.play().catch(err => {
-        console.error('Erreur lors de la lecture audio:', err);
-    });
+    audioControls.classList.remove('hidden');
+    
+    // Permettre la lecture automatique
+    const playPromise = audioPlayer.play();
+    
+    if (playPromise !== undefined) {
+        playPromise
+            .then(() => {
+                console.log('✅ La musique se joue!');
+                updatePlayButton();
+            })
+            .catch(err => {
+                console.error('❌ Erreur:', err.message);
+            });
+    }
 }
+
+function togglePlayPause() {
+    const audioPlayer = document.getElementById('audio-player');
+    const playIcon = document.querySelector('.play-icon');
+    const pauseIcon = document.querySelector('.pause-icon');
+    
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+    } else {
+        audioPlayer.pause();
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+    }
+}
+
+function updatePlayButton() {
+    const playIcon = document.querySelector('.play-icon');
+    const pauseIcon = document.querySelector('.pause-icon');
+    
+    playIcon.classList.add('hidden');
+    pauseIcon.classList.remove('hidden');
+}
+
+// Ajouter l'event listener au bouton play/pause
+document.addEventListener('DOMContentLoaded', () => {
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', togglePlayPause);
+    }
+});
 
 // ========================================
 // INITIALISATION FINALE
