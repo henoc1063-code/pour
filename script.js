@@ -1,7 +1,7 @@
 // ========================================
 // SYSTÈME DE VERROUILLAGE
 // ========================================
-const PASSWORD = 'DIVINE';
+const PASSWORD = 'haniel200700';
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page chargée - Attente du formulaire...');
